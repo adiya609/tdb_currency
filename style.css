@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.title {
+  color: #0095da;
+  font-size: 21px;
+  text-align: center;
+  position: relative;
+  padding-top: 30px;
+  margin-bottom: -80px;
+}
+.according {
+  width: 1078px;
+  height: 40px;
+
+  margin-top: 20px;
+  margin-left: 30px;
+  position: relative;
+}
+.accord {
+  padding-top: 2px;
+  width: 1078px;
+  height: 114px;
+
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid #08a2ea;
+}
+.accord h2 {
+  color: #08a2ea;
+  font-weight: 300;
+  padding-top: 60px;
+  margin-left: 10px;
+  //border: 1px solid #e7e7e7;
+}
+.according h5 span {
+  font-size: 14px;
+  line-height: 20px;
+  color: #08a2ea;
+  margin-left: 34px;
+  font-weight: 300;
+}
+
+.current {
+  width: 1138px;
+  height: 625px;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border: 1px solid #e7e7e7;
+}
+.active {
+  background-color: #fff;
+}
+.head {
+  width: 1138px;
+  height: 41px;
+  position: relative;
+  display: table;
+}
+
+.head__text1 {
+  float: right;
+  width: 379px;
+  height: 41px;
+  background-color: #0984e3;
+}
+.head__text1:hover {
+  background-color: #fff;
+}
+.head__text2 {
+  width: 379px;
+  height: 41px;
+  background-color: #0984e3;
+}
+.head__text2:hover {
+  background-color: #fff;
+}
+.head__text3 {
+  margin-top: -41px;
+  margin-left: 380px;
+  width: 378px;
+  height: 41px;
+  background-color: #0984e3;
+}
+.head__text3:hover {
+  background-color: #fff;
+}
+.row {
+  width: 692px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+
+  //background-color: grey;
+}
+.label-input {
+  text-align: right;
+  padding-right: 7px;
+  padding-top: 7px;
+}
+input {
+  width: 228.66px;
+  height: 33px;
+  border: 1px solid #fff;
+  text-align: right;
+  padding-right: 8px;
+}
+button {
+  width: 228.66px;
+  height: 33px;
+  border: 1px solid #fff;
+  text-align: center;
+  background-color: #fff;
+}
+select {
+  height: 33px;
+  float: right;
+  border: 1px solid #fff;
+  text-align: right;
+}
+.col-md-4 {
+  width: 230.66px;
+  height: 35px;
+  float: left;
+  border: 1px solid #fff;
+}
+.box {
+  width: 230.66px;
+  height: 35px;
+  float: left;
+  border: 1px solid #08a2ea;
+}
+.label-currency {
+  padding-top: 9px;
+  padding-left: 5px;
+}
