@@ -132,24 +132,115 @@ html = `<form class="col-sm-8">
 //};
 
 // Дэлгэцтэй ажиллах хэсэг
-var uiController = (function () {})();
+var uiController = (function () {
+  var domStrings = {
+    add__type: ".add__type",
+    currency: ".currency",
+    month: ".month",
+    procent: ".procent",
+    addMoney: ".addMoney",
+    addBtn: ".addBtn",
+  };
+
+  return {
+    getData: function () {
+      return {
+        type: document.querySelector(domStrings.add__type).value,
+        currency: document.querySelector(domStrings.currency).value,
+        month: document.querySelector(domStrings.month).value,
+        procent: document.querySelector(domStrings.procent).value,
+        addMoney: document.querySelector(domStrings.addMoney).value,
+      };
+    },
+    getDomstrings: function () {
+      return domStrings;
+    },
+  };
+})();
 
 // Хадгаламжийн хүүг тооцоолох хэсэг
-var calculateController = (function () {})();
+var calculateController = (function () {
+  var termOrTime = function (type, currency, month, procent, addMoney) {
+    this.type = type;
+    this.currency = currency;
+    this.month = month;
+    this.procent = procent;
+    this.addMoney = addMoney;
+  };
+
+  var permanent = function (type, currency, month, procent, addMoney) {
+    this.type = type;
+    this.currency = currency;
+    this.month = month;
+    this.procent = procent;
+    this.addMoney = addMoney;
+  };
+  var data = {
+    items: {
+      cur: [],
+      rate: [],
+    },
+    totals: {
+      curTotal: 0,
+      rateTotal: 0,
+    },
+  };
+  return {
+    addItm: function (type, currency, month, procent, addMoney) {
+      if (type === "inc") {
+        for (var i = 0; i < month; i++) {
+          data.items.cur.push(currency);
+          data.items.rate.push((currency / 100) * procent);
+        }
+
+        data.totals.curTotal = currency + (currency / 100) * procent * month;
+        data.totals.rateTotal = (currency / 100) * procent * month;
+        console.log(data);
+      } else {
+        alert("hhaha");
+      }
+    },
+  };
+})();
 
 // Програмын холбогч контроллер хэсэг
-var appController = (function () {
+var appController = (function (uiController, calculateController) {
+  // 1. Өгөгдлийг дэлгэцнээс олж авна
   var ctrlAddItem = function () {
-    // 1. Өгөгдлийг дэлгэцнээс олж авна
     // 2. Өгөгдсөн мэдээлэлд тулгуурлаж үр дүнг тооцоолно
-    console.log(event);
+    var input = uiController.getData();
+    calculateController.addItm(
+      input.type,
+      parseInt(input.currency),
+      parseInt(input.month),
+      parseFloat(input.procent),
+      parseInt(input.addMoney)
+    );
   };
-  document.querySelector(".addBtn").addEventListener("click", function () {
-    ctrlAddItem();
-  });
-  document.addEventListener("keypress", function (event) {
-    if (event.keyCode === 13 || event.which === 13) {
+  var setupEventListener = function () {
+    var DOM = uiController.getDomstrings();
+
+    document.querySelector(DOM.addBtn).addEventListener("click", function () {
       ctrlAddItem();
-    }
-  });
-})();
+    });
+    document.addEventListener("keypress", function (event) {
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  };
+  return {
+    init: function () {
+      console.log("Application starting.....");
+      setupEventListener();
+    },
+  };
+})(uiController, calculateController);
+
+appController.init();
+
+// Дараагийн хийгдэх ажилууд......
+
+// 1.calculateController-оор мэдээлэлүүдээ хүлээн аваад тухайн хэсэгт оруулсан өгөгдөлт харгалзах тооцоог бодож дэлгэцийн модуль руу дамжуулж үр дүнг харуулна
+//....
+// console.log-oor data-г харуулж байгаа. Дараагийн хийгдэх ажил бол тооцоог бүрэн дуусгаад DOM руу мэдээлэлийг харуулдаг байхааар гүйцээж хийнэ
