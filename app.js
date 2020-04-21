@@ -3,6 +3,7 @@ var DomStrings = {
   head1: ".head__text1",
   head2: ".head__text2",
   head3: ".head__text3",
+  table: ".table",
 };
 var reply_click = function () {
   if (this.id === "1") {
@@ -23,113 +24,6 @@ document.getElementById("1").onclick = reply_click;
 document.getElementById("2").onclick = reply_click;
 document.getElementById("3").onclick = reply_click;
 var i = 0;
-html = `<form class="col-sm-8">
-  <div class="row">
-      <div class="col-md-4 label-input">Данс нээх мөнгөн дүн:
-      </div>
-      <div class="col-md-4 box">
-          <input value="1,000,000,00"> </input>
-      </div>
-      <div class="col-md-4 label-currency">ТӨГРӨГ
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-4 label-input">Хадгаламжийн төрөл:
-      </div>
-      <div class="col-md-4 box">
-          <select onchange="mmm"> </select>
-      </div>
-
-  </div>
-  <div class="row">
-      <div class="col-md-4 label-input">Хугацааны төрөл:
-      </div>
-      <div class="col-md-4 box">
-          <select onchange="mmm"> </select>
-      </div>
-  </div>
-  <div class="row">
-      <div class="row">
-          <div class="col-md-4 label-input">Хугацаа:
-          </div>
-          <div class="col-md-4 box">
-              <input> </input>
-          </div>
-          <div class="col-md-4 label-currency">САР
-          </div>
-      </div>
-      <div class="row">
-          <div class="row">
-              <div class="col-md-4 label-input">Данс нээх мөнгөн дүн:
-              </div>
-              <div class="col-md-4 box">
-                  <input value="15.00"> </input>
-              </div>
-              <div class="col-md-4 label-currency">%САРААР
-              </div>
-          </div>
-          <div class="row">
-              <div class="row">
-                  <div class="col-md-4 label-input">Сар бүр нэмэх дүн:
-                  </div>
-                  <div class="col-md-4 box">
-                      <input value="0.00"> </input>
-                  </div>
-
-              </div>
-              <div class="row">
-                  <div class="row">
-                      <div class="col-md-4 label-input">
-                      </div>
-                      <div class="col-md-4 box">
-                          <button value="ТООЦООЛОХ"> ТООЦООЛОХ</button>
-                      </div>
-
-                  </div>
-</form>`;
-//document
-//  .querySelector(".fa-chevron-right")
-//  .addEventListener("click", function () {
-//    console.log(i);
-//    if (i === 0) {
-//      ctrlAddItem(html);
-//      // console.log(html);
-//      i = 1;
-//    } else {
-//      html = ``;
-//      ctrlAddItem(html);
-//      i = 0;
-//    }
-//  });
-//var ctrlAddItem = function (html) {
-//  var y = html;
-//  document.querySelector(".list").insertAdjacentHTML("beforeend", html);
-//};
-
-//document.querySelector(".submit").addEventListener("click", function () {
-//  insert();
-//});
-
-//var insert = function () {
-//  var items = [];
-//  var x1 = document.querySelector(".money").value;
-//  var m = document.querySelector(".month").value;
-//  var addM = document.querySelector(".addMoney").value;
-//  var procent = document.querySelector(".procent").value;
-//  var x = parseInt(x1);
-//  var proc = parseInt(procent);
-//  var addMo = parseInt(addM);
-//  var month = parseInt(m);
-//  for (var i = 0; i < month; i++) {
-//    var res;
-//    x = x + addMo;
-//    x = x + (x % 100) * proc;
-//    alert(x);
-//    res = res + result;
-//    // items.push(x);
-//  }
-//  // alert(items);
-//};
 
 // Дэлгэцтэй ажиллах хэсэг
 var uiController = (function () {
@@ -155,12 +49,30 @@ var uiController = (function () {
     getDomstrings: function () {
       return domStrings;
     },
+    addListItem: function (tooTsoo) {
+      var html;
+      var too = tooTsoo;
+      console.log(too);
+      html =
+        '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+
+      html = html.replace("%id%", too.items.cur[0]);
+      html = html.replace("$$DESCRIPTION$$", too.totals.rateTotal);
+      html = html.replace("$$VALUE$$", too.items.rate[0]);
+      // Бэлтгэсэн HTML ээ DOM хийж өгнө
+      console.log(too.items.cur);
+      console.log(too.totals.rateTotal);
+      console.log(too.items.rate);
+      //document
+      //  .querySelector(domStrings.table)
+      //  .insertAdjacentHTML("beforeend", html);
+    },
   };
 })();
 
 // Хадгаламжийн хүүг тооцоолох хэсэг
 var calculateController = (function () {
-  var termOrTime = function (type, currency, month, procent, addMoney) {
+  var TermOrTime = function (type, currency, month, procent, addMoney) {
     this.type = type;
     this.currency = currency;
     this.month = month;
@@ -168,13 +80,14 @@ var calculateController = (function () {
     this.addMoney = addMoney;
   };
 
-  var permanent = function (type, currency, month, procent, addMoney) {
+  var Permanent = function (type, currency, month, procent, addMoney) {
     this.type = type;
     this.currency = currency;
     this.month = month;
     this.procent = procent;
     this.addMoney = addMoney;
   };
+
   var data = {
     items: {
       cur: [],
@@ -188,17 +101,29 @@ var calculateController = (function () {
   return {
     addItm: function (type, currency, month, procent, addMoney) {
       if (type === "inc") {
-        for (var i = 0; i < month; i++) {
-          data.items.cur.push(currency);
-          data.items.rate.push((currency / 100) * procent);
+        if (addMoney !== 0) {
+          for (var i = 0; i < month; i++) {
+            data.items.cur.push(currency);
+            data.items.rate.push((currency / 100) * procent);
+            currency = currency + addMoney;
+          }
+          var x = 0;
+          for (var i = 0; i < month; i++) {
+            x = x + data.items.rate[i];
+          }
+          data.totals.rateTotal = x;
+          data.totals.curTotal = data.items.cur[month - 1] + x;
+        } else {
+          for (var i = 0; i < month; i++) {
+            data.items.cur.push(currency);
+            data.items.rate.push((currency / 100) * procent);
+          }
+          data.totals.curTotal = currency + (currency / 100) * procent * month;
+          data.totals.rateTotal = (currency / 100) * procent * month;
         }
-
-        data.totals.curTotal = currency + (currency / 100) * procent * month;
-        data.totals.rateTotal = (currency / 100) * procent * month;
-        console.log(data);
-      } else {
-        alert("hhaha");
-      }
+        //console.log(data);
+        return data;
+      } else alert("....");
     },
   };
 })();
@@ -209,13 +134,14 @@ var appController = (function (uiController, calculateController) {
   var ctrlAddItem = function () {
     // 2. Өгөгдсөн мэдээлэлд тулгуурлаж үр дүнг тооцоолно
     var input = uiController.getData();
-    calculateController.addItm(
+    var tooTsoo = calculateController.addItm(
       input.type,
       parseInt(input.currency),
       parseInt(input.month),
       parseFloat(input.procent),
       parseInt(input.addMoney)
     );
+    uiController.addListItem(tooTsoo);
   };
   var setupEventListener = function () {
     var DOM = uiController.getDomstrings();
@@ -244,3 +170,5 @@ appController.init();
 // 1.calculateController-оор мэдээлэлүүдээ хүлээн аваад тухайн хэсэгт оруулсан өгөгдөлт харгалзах тооцоог бодож дэлгэцийн модуль руу дамжуулж үр дүнг харуулна
 //....
 // console.log-oor data-г харуулж байгаа. Дараагийн хийгдэх ажил бол тооцоог бүрэн дуусгаад DOM руу мэдээлэлийг харуулдаг байхааар гүйцээж хийнэ
+
+// Динамик хүснэгт үүсгээд тухайн өгөгдөлийг харуулах эсвэл өгөгдлийг баганан хэлбэртэй харуулах
