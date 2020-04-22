@@ -35,7 +35,27 @@ var uiController = (function () {
     addMoney: ".addMoney",
     addBtn: ".addBtn",
   };
+  var formatNumber = function (numbers) {
+    var number = numbers;
+    var too = "" + number;
 
+    var y = "";
+    var count = 1;
+
+    var string = "" + i;
+    var x = too.split("").reverse().join("");
+
+    for (var i = 0; i < x.length; i++) {
+      y = y + x[i];
+      if (count % 3 === 0) {
+        y = y + ",";
+      }
+      count++;
+    }
+    var z = y.split("").reverse().join("");
+    if (z[0] === ",") z = z.substr(1, z.length - 1);
+    return z;
+  };
   return {
     getData: function () {
       return {
@@ -49,15 +69,18 @@ var uiController = (function () {
     getDomstrings: function () {
       return domStrings;
     },
+
     addListItem: function (tooTsoo) {
       var too = tooTsoo;
-      console.log(too);
       var massiv = too.items.rate;
       var currency = too.items.cur;
-      // get the reference for the body
-      var body = document.getElementsByTagName("div1")[0];
 
-      // creates a <table> element and a <tbody> element
+      var currencytotal = too.totals.curTotal;
+      var ratetotal = too.totals.rateTotal;
+
+      console.log(currencytotal, ratetotal);
+
+      var body = document.getElementsByTagName("div1")[0];
       var tbl = document.createElement("table");
       var tblBody = document.createElement("tbody");
 
@@ -65,8 +88,12 @@ var uiController = (function () {
       for (var i = 0; i <= too.items.rate.length; i++) {
         // creates a table row
         var row = document.createElement("tr");
-        var mass = document.createTextNode(Math.round(massiv[i - 1]));
-        var curr = document.createTextNode(Math.round(currency[i - 1]));
+        var mass = document.createTextNode(
+          formatNumber(Math.round(massiv[i - 1])) + "₮"
+        );
+        var curr = document.createTextNode(
+          formatNumber(Math.round(currency[i - 1])) + "₮"
+        );
 
         for (var j = 0; j < 3; j++) {
           var cell = document.createElement("td");
@@ -103,16 +130,11 @@ var uiController = (function () {
             row.appendChild(cell);
           }
         }
-        // add the row to the end of the table body
         tblBody.appendChild(row);
       }
-      // put the <tbody> in the <table>
       tbl.appendChild(tblBody);
-      // appends <table> into <body>
       body.appendChild(tbl);
-      // sets the border attribute of tbl to 2;
       tbl.setAttribute("border", "1");
-      //console.log(massiv[11]);
     },
   };
 })();
@@ -152,7 +174,6 @@ var calculateController = (function () {
           data.totals.curTotal = currency + (currency / 100) * procent * month;
           data.totals.rateTotal = (currency / 100) * procent * month;
         }
-        //console.log(data);
         return data;
       } else alert("....");
     },
@@ -198,12 +219,14 @@ appController.init();
 document
   .querySelector(".fa-chevron-right")
   .addEventListener("click", function () {
-    console.log("hahah");
+    document.querySelector(".smart").classList.toggle("index");
+    document.querySelector(".fa-chevron-right").classList.toggle("down");
   });
 // Дараагийн хийгдэх ажилууд......
 
-// 1.calculateController-оор мэдээлэлүүдээ хүлээн аваад тухайн хэсэгт оруулсан өгөгдөлт харгалзах тооцоог бодож дэлгэцийн модуль руу дамжуулж үр дүнг харуулна
-//....
+// 1.calculateController-оор мэдээлэлүүдээ хүлээн аваад тухайн хэсэгт оруулсан өгөгдөлт харгалзах   тооцоог бодож дэлгэцийн модуль руу дамжуулж үр дүнг харуулна
+
 // console.log-oor data-г харуулж байгаа. Дараагийн хийгдэх ажил бол тооцоог бүрэн дуусгаад DOM руу мэдээлэлийг харуулдаг байхааар гүйцээж хийнэ
 
 // Динамик хүснэгт үүсгээд тухайн өгөгдөлийг харуулах эсвэл өгөгдлийг баганан хэлбэртэй харуулах
+// Суман дээр дарах үед хадгаламж тооцоолох цонх гарч ирэх хэсгийг хийнэ

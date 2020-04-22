@@ -4,11 +4,6 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
-h5 a i:hover {
-  transform: translateX(8px);
-  transition-duration: 0.5s;
-  color: #0095da;
-}
 .title {
   color: #0095da;
   font-size: 21px;
@@ -25,11 +20,20 @@ h5 a i:hover {
   margin-left: 30px;
   position: relative;
 }
+
+.smart {
+  position: relative;
+  margin-top: 50px;
+  width: auto;
+  height: auto;
+}
+.index {
+  z-index: -1;
+}
 .accord {
   padding-top: 2px;
   width: 1078px;
   height: 114px;
-
   margin-left: auto;
   margin-right: auto;
   border-bottom: 1px solid #08a2ea;
@@ -39,23 +43,22 @@ h5 a i:hover {
   font-weight: 300;
   padding-top: 60px;
   margin-left: 10px;
-  //border: 1px solid #e7e7e7;
 }
 .according h5 span {
   font-size: 14px;
   line-height: 20px;
-
   margin-left: 34px;
   font-weight: 300;
 }
 
 .current {
   width: 1138px;
-  height: 900px;
+  height: auto;
   background-color: #fff;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
+  padding-bottom: 50px;
   border: 1px solid #e7e7e7;
 }
 .active {
@@ -163,4 +166,11 @@ td {
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.down {
+  transform: rotate(90deg);
+  transition-duration: 0.4s;
+}
+.fa-chevron-right {
+  transition-duration: 0.4s;
 }
