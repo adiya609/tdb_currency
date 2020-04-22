@@ -4,6 +4,11 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+h5 a i:hover {
+  transform: translateX(8px);
+  transition-duration: 0.5s;
+  color: #0095da;
+}
 .title {
   color: #0095da;
   font-size: 21px;
@@ -39,7 +44,7 @@
 .according h5 span {
   font-size: 14px;
   line-height: 20px;
-  color: #08a2ea;
+
   margin-left: 34px;
   font-weight: 300;
 }
@@ -140,17 +145,22 @@ select {
   padding-top: 9px;
   padding-left: 5px;
 }
-#div1 {
-  margin: 10px;
-  font-size: 1.25em;
-}
+
 table {
   border-collapse: collapse;
   border: 1px solid #7f7f7f;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 td {
   border: 1px solid #7f7f7f;
   width: 50px;
   height: 50px;
   text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

@@ -55,7 +55,7 @@ var uiController = (function () {
       var massiv = too.items.rate;
       var currency = too.items.cur;
       // get the reference for the body
-      var body = document.getElementsByTagName("body")[0];
+      var body = document.getElementsByTagName("div1")[0];
 
       // creates a <table> element and a <tbody> element
       var tbl = document.createElement("table");
@@ -65,8 +65,8 @@ var uiController = (function () {
       for (var i = 0; i <= too.items.rate.length; i++) {
         // creates a table row
         var row = document.createElement("tr");
-        var mass = document.createTextNode(massiv[i - 1]);
-        var curr = document.createTextNode(currency[i - 1]);
+        var mass = document.createTextNode(Math.round(massiv[i - 1]));
+        var curr = document.createTextNode(Math.round(currency[i - 1]));
 
         for (var j = 0; j < 3; j++) {
           var cell = document.createElement("td");
@@ -119,22 +119,6 @@ var uiController = (function () {
 
 // Хадгаламжийн хүүг тооцоолох хэсэг
 var calculateController = (function () {
-  var TermOrTime = function (type, currency, month, procent, addMoney) {
-    this.type = type;
-    this.currency = currency;
-    this.month = month;
-    this.procent = procent;
-    this.addMoney = addMoney;
-  };
-
-  var Permanent = function (type, currency, month, procent, addMoney) {
-    this.type = type;
-    this.currency = currency;
-    this.month = month;
-    this.procent = procent;
-    this.addMoney = addMoney;
-  };
-
   var data = {
     items: {
       cur: [],
@@ -211,7 +195,11 @@ var appController = (function (uiController, calculateController) {
 })(uiController, calculateController);
 
 appController.init();
-
+document
+  .querySelector(".fa-chevron-right")
+  .addEventListener("click", function () {
+    console.log("hahah");
+  });
 // Дараагийн хийгдэх ажилууд......
 
 // 1.calculateController-оор мэдээлэлүүдээ хүлээн аваад тухайн хэсэгт оруулсан өгөгдөлт харгалзах тооцоог бодож дэлгэцийн модуль руу дамжуулж үр дүнг харуулна
