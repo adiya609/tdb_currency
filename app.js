@@ -50,22 +50,69 @@ var uiController = (function () {
       return domStrings;
     },
     addListItem: function (tooTsoo) {
-      var html;
       var too = tooTsoo;
       console.log(too);
-      html =
-        '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+      var massiv = too.items.rate;
+      var currency = too.items.cur;
+      // get the reference for the body
+      var body = document.getElementsByTagName("body")[0];
 
-      html = html.replace("%id%", too.items.cur[0]);
-      html = html.replace("$$DESCRIPTION$$", too.totals.rateTotal);
-      html = html.replace("$$VALUE$$", too.items.rate[0]);
-      // Бэлтгэсэн HTML ээ DOM хийж өгнө
-      console.log(too.items.cur);
-      console.log(too.totals.rateTotal);
-      console.log(too.items.rate);
-      //document
-      //  .querySelector(domStrings.table)
-      //  .insertAdjacentHTML("beforeend", html);
+      // creates a <table> element and a <tbody> element
+      var tbl = document.createElement("table");
+      var tblBody = document.createElement("tbody");
+
+      // creating all cells
+      for (var i = 0; i <= too.items.rate.length; i++) {
+        // creates a table row
+        var row = document.createElement("tr");
+        var mass = document.createTextNode(massiv[i - 1]);
+        var curr = document.createTextNode(currency[i - 1]);
+
+        for (var j = 0; j < 3; j++) {
+          var cell = document.createElement("td");
+          var cellText = document.createTextNode(
+            "cell in row " + i + ", column " + j
+          );
+          var cellI = document.createTextNode(i + "-р сар");
+          var month = document.createTextNode("САР");
+          var rate = document.createTextNode("ХҮҮ");
+          var empty = document.createTextNode("ҮЛДЭГДЭЛ");
+
+          if (j === 0) {
+            if (i === 0) {
+              cell.appendChild(month);
+              row.appendChild(cell);
+            } else {
+              cell.appendChild(cellI);
+              row.appendChild(cell);
+            }
+          } else if (j === 1 && i === 0) {
+            cell.appendChild(rate);
+            row.appendChild(cell);
+          } else if (j === 2 && i === 0) {
+            cell.appendChild(empty);
+            row.appendChild(cell);
+          } else if (j === 1 && i > 0) {
+            cell.appendChild(mass);
+            row.appendChild(cell);
+          } else if (j === 2 && i >= 1) {
+            cell.appendChild(curr);
+            row.appendChild(cell);
+          } else {
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+          }
+        }
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
+      }
+      // put the <tbody> in the <table>
+      tbl.appendChild(tblBody);
+      // appends <table> into <body>
+      body.appendChild(tbl);
+      // sets the border attribute of tbl to 2;
+      tbl.setAttribute("border", "1");
+      //console.log(massiv[11]);
     },
   };
 })();
